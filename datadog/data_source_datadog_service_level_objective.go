@@ -88,6 +88,12 @@ func dataSourceDatadogServiceLevelObjective() *schema.Resource {
 						},
 					},
 				},
+				"monitor_ids": {
+					Description: "A list of monitor IDs that defines the scope of a monitor service level objective.",
+					Type:        schema.TypeList,
+					Computed:    true,
+					Elem:        &schema.Schema{Type: schema.TypeInt},
+				},
 			}
 		},
 	}
@@ -152,6 +158,10 @@ func dataSourceDatadogServiceLevelObjectiveRead(ctx context.Context, d *schema.R
 	query["numerator"] = sloQ.GetNumerator()
 	query["denominator"] = sloQ.GetDenominator()
 	if err := d.Set("query", []map[string]interface{}{query}); err != nil {
+		return diag.FromErr(err)
+	}
+
+	if err := d.Set("monitor_ids", slo.GetMonitorIds()); err != nil {
 		return diag.FromErr(err)
 	}
 

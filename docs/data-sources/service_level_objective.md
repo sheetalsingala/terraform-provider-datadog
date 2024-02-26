@@ -36,6 +36,7 @@ data "datadog_service_level_objective" "api_slo" {
 ### Read-Only
 
 - `description` (String) The description of the service level objective.
+- `monitor_ids` (List of Number) A list of monitor IDs that defines the scope of a monitor service level objective.
 - `name` (String) Name of the Datadog service level objective
 - `query` (List of Object) The metric query of good / total events (see [below for nested schema](#nestedatt--query))
 - `target_threshold` (Number) The primary target threshold of the service level objective.
